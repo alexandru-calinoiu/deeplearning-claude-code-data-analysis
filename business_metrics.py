@@ -47,9 +47,13 @@ class BusinessMetricsCalculator:
         metrics['total_revenue'] = self.sales_data['price'].sum()
 
         # Average order value (AOV)
-        order_totals = self.sales_data.groupby('order_id')['price'].sum()
-        metrics['average_order_value'] = order_totals.mean()
-        metrics['median_order_value'] = order_totals.median()
+        if len(self.sales_data) > 0 and self.sales_data['order_id'].nunique() > 0:
+            order_totals = self.sales_data.groupby('order_id')['price'].sum()
+            metrics['average_order_value'] = order_totals.mean()
+            metrics['median_order_value'] = order_totals.median()
+        else:
+            metrics['average_order_value'] = 0
+            metrics['median_order_value'] = 0
 
         # Total orders
         metrics['total_orders'] = self.sales_data['order_id'].nunique()
@@ -58,13 +62,19 @@ class BusinessMetricsCalculator:
         metrics['total_items'] = len(self.sales_data)
 
         # Items per order
-        metrics['avg_items_per_order'] = metrics['total_items'] / metrics['total_orders']
+        metrics['avg_items_per_order'] = (
+            metrics['total_items'] / metrics['total_orders']
+            if metrics['total_orders'] > 0 else 0
+        )
 
         # Comparison metrics (YoY growth)
-        if comparison_data is not None:
+        if comparison_data is not None and len(comparison_data) > 0:
             prev_revenue = comparison_data['price'].sum()
             prev_orders = comparison_data['order_id'].nunique()
-            prev_aov = comparison_data.groupby('order_id')['price'].sum().mean()
+            if prev_orders > 0:
+                prev_aov = comparison_data.groupby('order_id')['price'].sum().mean()
+            else:
+                prev_aov = 0
 
             if prev_revenue > 0:
                 metrics['revenue_growth_pct'] = (
