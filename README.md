@@ -1,11 +1,12 @@
 # E-Commerce Business Analytics
 
-A comprehensive e-commerce analytics solution with modular Python architecture for analyzing sales performance, product trends, geographic distribution, and customer satisfaction.
+A comprehensive e-commerce analytics solution with modular Python architecture for analyzing sales performance, product trends, geographic distribution, and customer satisfaction. Includes both a professional Streamlit dashboard and detailed Jupyter notebook analysis.
 
 ## Project Structure
 
 ```
 .
+├── dashboard.py                # Streamlit dashboard application
 ├── data_loader.py              # Data loading and cleaning module
 ├── business_metrics.py         # Business metrics calculation and visualization
 ├── EDA_Refactored.ipynb        # Main analysis notebook
@@ -22,6 +23,16 @@ A comprehensive e-commerce analytics solution with modular Python architecture f
 
 ## Features
 
+### Interactive Dashboard
+- **Professional Streamlit Interface**: Modern web-based dashboard with responsive design
+- **KPI Cards**: Total Revenue, Monthly Growth, Average Order Value, Total Orders with trend indicators
+- **Revenue Trend Chart**: Dual-period comparison with current vs previous year
+- **Top 10 Categories**: Bar chart with blue gradient showing product performance
+- **Geographic Map**: US choropleth showing revenue by state
+- **Satisfaction Analysis**: Delivery time vs review score correlation
+- **Customer Experience Cards**: Average delivery time and review score with stars
+
+### Jupyter Notebook Analysis
 - **Revenue Analysis**: Total revenue, year-over-year growth, monthly trends
 - **Product Performance**: Category-level analysis with revenue share
 - **Geographic Analysis**: State-level revenue distribution with interactive maps
@@ -45,6 +56,23 @@ pip install -r requirements.txt
 ```
 
 ## Usage
+
+### Running the Dashboard
+
+1. **Start the Streamlit dashboard:**
+```bash
+streamlit run dashboard.py
+```
+
+2. **Access the dashboard:**
+   - Open your browser to `http://localhost:8501`
+   - The dashboard will automatically open
+
+3. **Using the dashboard:**
+   - Select a year from the dropdown in the top-right corner
+   - View KPI cards with trend indicators (green = positive, red = negative)
+   - Interact with charts to explore data
+   - Hover over visualizations for detailed tooltips
 
 ### Running the Refactored Analysis
 
@@ -266,7 +294,7 @@ Available statuses: delivered, shipped, canceled, pending, processing, returned
 ### Common Issues
 
 **Issue**: `ModuleNotFoundError: No module named 'data_loader'`
-- **Solution**: Ensure you're running the notebook from the project root directory
+- **Solution**: Ensure you're running the notebook/dashboard from the project root directory
 
 **Issue**: `FileNotFoundError: ecommerce_data/orders_dataset.csv`
 - **Solution**: Verify the `DATA_PATH` configuration points to the correct directory
@@ -276,6 +304,14 @@ Available statuses: delivered, shipped, canceled, pending, processing, returned
 
 **Issue**: Plots not displaying
 - **Solution**: Ensure `%matplotlib inline` is executed and matplotlib is installed
+
+**Issue**: Dashboard won't start
+- **Solution**: Ensure Streamlit is installed: `pip install streamlit>=1.28.0`
+- **Solution**: Check Python version is 3.9 or higher
+
+**Issue**: Dashboard shows no data
+- **Solution**: Verify CSV files exist in `ecommerce_data/` directory
+- **Solution**: Ensure selected year exists in the dataset
 
 ## Performance Notes
 

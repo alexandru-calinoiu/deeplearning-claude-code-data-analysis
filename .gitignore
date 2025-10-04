@@ -89,3 +89,6 @@ dmypy.json
 *.db
 *.sqlite
 *.sqlite3
+
+# Playright mcp
+.playwright-mcp
